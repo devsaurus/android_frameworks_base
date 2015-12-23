@@ -196,6 +196,12 @@ Layer* LayerRenderer::createRenderLayer(RenderState& renderState, uint32_t width
         return NULL;
     }
 
+    if (width == 0 && height == 0) {
+        ALOGW("Trying to obtain a zero-size layer, setting fall-back size 480x800");
+        width = 480;
+        height = 800;
+    }
+
     caches.activeTexture(0);
     Layer* layer = caches.layerCache.get(renderState, width, height);
     if (!layer) {
